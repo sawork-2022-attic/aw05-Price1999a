@@ -21,6 +21,18 @@ spring:
             - Path=/session/**
           filters:
             - PrefixPath=/cart-api
+        - id: checkout
+          uri: lb://POS-CART
+          predicates:
+            - Path=/checkout/**
+          filters:
+            - PrefixPath=/cart-api
+        - id: cart
+          uri: lb://POS-CART
+          predicates:
+            - Path=/cart/**
+          filters:
+            - PrefixPath=/cart-api
 eureka:
   instance:
     instance-id: pos-gateway-8080

@@ -1,6 +1,6 @@
 package com.micropos.cart.rest;
 
-import com.micropos.cart.api.CartsApi;
+import com.micropos.cart.api.CartApi;
 import com.micropos.cart.api.CheckoutApi;
 import com.micropos.cart.dto.ItemDto;
 import com.micropos.cart.mapper.CartMapper;
@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("cart-api")
-public class CartController implements CheckoutApi, CartsApi {
+public class CartController implements CheckoutApi, CartApi {
     private Log logger = LogFactory.getLog(CartController.class);
 
     private final CartMapper cartMapper;

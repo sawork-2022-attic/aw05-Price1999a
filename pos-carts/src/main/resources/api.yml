@@ -9,7 +9,7 @@ info:
 #    http://xxx.com/api/v1/user, PUT,  修改用户信息
 #    http://xxx.com/api/v1/user, DELETE, 删除用户信息
 paths:
-  /carts:
+  /cart:
     get:
       summary: List all products in cart
       operationId: listCart
@@ -28,7 +28,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /carts/{productId}:
+  /cart/{productId}:
     post:
       summary: Add one product to Cart
       operationId: addProduct
