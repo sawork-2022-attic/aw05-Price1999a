@@ -1,12 +1,15 @@
 package com.micropos.products.repository;
 
 import com.micropos.products.model.Product;
+import com.micropos.products.rest.ProductController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.cache.annotation.Cacheable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,9 +18,12 @@ import java.util.List;
 @Repository
 public class JDRepository implements ProductRepository {
     private List<Product> products = null;
+    private Log logger = LogFactory.getLog(JDRepository.class);
 
     @Override
+    @Cacheable(value = "jd")
     public List<Product> allProducts() {
+        logger.info("public List<Product> allProducts() called");
         try {
             if (products == null)
                 products = parseJD("Java");
