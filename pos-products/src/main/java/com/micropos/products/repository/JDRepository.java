@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Repository;
 import org.springframework.cache.annotation.Cacheable;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class JDRepository implements ProductRepository {
     }
 
     @Override
+    @Cacheable(value = "jd", key = "#productId")
     public Product findProduct(String productId) {
         for (Product p : allProducts()) {
             if (p.getId().equals(productId)) {
