@@ -43,6 +43,7 @@ public class JDRepository implements ProductRepository {
         Element element = document.getElementById("J_goodsList");
         Elements elements = element.getElementsByTag("li");
         List<Product> list = new ArrayList<>();
+        int tmp_id = 1;
 
         for (Element el : elements) {
             String id = el.attr("data-spu");
@@ -51,7 +52,7 @@ public class JDRepository implements ProductRepository {
             String title = el.getElementsByClass("p-name").eq(0).text();
             if (title.indexOf("，") >= 0)
                 title = title.substring(0, title.indexOf("，"));
-
+            if (id.equals("")) id = String.valueOf(tmp_id++);
             Product product = new Product(id, title, Double.parseDouble(price), img);
             list.add(product);
         }
