@@ -28,7 +28,6 @@ public class ProductController implements ProductsApi {
 
     private Log logger = LogFactory.getLog(ProductController.class);
 
-
     public ProductController(ProductService productService, ProductMapper productMapper) {
         this.productMapper = productMapper;
         this.productService = productService;

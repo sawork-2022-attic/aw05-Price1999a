@@ -15,6 +15,12 @@ spring:
             # - Method=GET #只能时 GET 请求时，才能访问
           filters:
             - PrefixPath=/products-api
+        - id: session-test
+          uri: lb://POS-CART
+          predicates:
+            - Path=/session/**
+          filters:
+            - PrefixPath=/cart-api
 eureka:
   instance:
     instance-id: pos-gateway-8080
