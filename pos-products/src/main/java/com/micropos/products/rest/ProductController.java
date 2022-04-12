@@ -48,9 +48,9 @@ public class ProductController implements ProductsApi {
             @Parameter(name = "productId", description = "The id of the product to retrieve", required = true, schema = @Schema(description = "")) @PathVariable("productId") String productId
     ) {
         ProductDto product = productMapper.toProductDto(productService.getProduct(productId));
-        if (product == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+//        if (product == null) {
+//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//        }
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 }
