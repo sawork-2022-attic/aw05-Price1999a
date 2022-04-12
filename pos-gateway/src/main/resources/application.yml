@@ -15,24 +15,45 @@ spring:
             # - Method=GET #只能时 GET 请求时，才能访问
           filters:
             - PrefixPath=/products-api
+            - name: CircuitBreaker
+              args:
+                name: productsCircuitBreaker
+                fallbackUri: forward:/fallback
+
         - id: session-test
           uri: lb://POS-CART
           predicates:
             - Path=/session/**
           filters:
             - PrefixPath=/cart-api
+            - name: CircuitBreaker
+              args:
+                name: cartCircuitBreaker
+                fallbackUri: forward:/fallback
+
         - id: checkout
           uri: lb://POS-CART
           predicates:
             - Path=/checkout/**
           filters:
             - PrefixPath=/cart-api
+            - name: CircuitBreaker
+              args:
+                name: cartCircuitBreaker
+                fallbackUri: forward:/fallback
+
         - id: cart
           uri: lb://POS-CART
           predicates:
             - Path=/cart/**
           filters:
             - PrefixPath=/cart-api
+            - name: CircuitBreaker
+              args:
+                name: cartCircuitBreaker
+                fallbackUri: forward:/fallback
+
+
 eureka:
   instance:
     instance-id: pos-gateway-8080
@@ -42,3 +63,4 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8000/eureka/
+
