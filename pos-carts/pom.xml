@@ -43,6 +43,38 @@
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+
     </dependencies>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <configuration>
+                    <modelNameSuffix>Dto</modelNameSuffix>
+                    <apiPackage>com.micropos.cart.api</apiPackage>
+                    <modelPackage>com.micropos.cart.dto</modelPackage>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
