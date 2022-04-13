@@ -57,7 +57,6 @@ spring:
 eureka:
   instance:
     instance-id: pos-gateway-8080
-    hostname: pos-gateway
   client:
     fetch-registry: true
     register-with-eureka: true

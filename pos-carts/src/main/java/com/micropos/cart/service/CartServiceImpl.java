@@ -48,10 +48,11 @@ public class CartServiceImpl implements CartService {
 
     public ProductDto getProductFromId(String productId) {
         RestTemplate restTemplate = new RestTemplate();
-        ServiceInstance serviceInstance = loadBalancerClient.choose("POS-PRODUCTS");
+        ServiceInstance serviceInstance = loadBalancerClient.choose("POS-GATEWAY");
         String url = String.format("http://%s:%s", serviceInstance.getHost(), serviceInstance.getPort())
-                + "/products-api/products/" + productId;
+                + "/products/" + productId;
         //logger.info(restTemplate.getForObject(url, ProductDto.class));
+        logger.info("url: " + url);
         return restTemplate.getForObject(url, ProductDto.class);
     }
 

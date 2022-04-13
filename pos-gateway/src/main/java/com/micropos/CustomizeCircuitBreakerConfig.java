@@ -16,7 +16,7 @@ public class CustomizeCircuitBreakerConfig {
 
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom() //
                 .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.TIME_BASED) // 滑动窗口的类型为时间窗口
-                .slidingWindowSize(10) // 时间窗口的大小为60秒
+                .slidingWindowSize(60) // 时间窗口的大小为60秒
                 .minimumNumberOfCalls(5) // 在单位时间窗口内最少需要5次调用才能开始进行统计计算
                 .failureRateThreshold(50) // 在单位时间窗口内调用失败率达到50%后会启动断路器
                 .enableAutomaticTransitionFromOpenToHalfOpen() // 允许断路器自动由打开状态转换为半开状态
