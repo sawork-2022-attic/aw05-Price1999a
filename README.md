@@ -18,3 +18,6 @@
 在pos-gateway上配置了断路器
 
 在当前架构中pos-discovery是EurekaServer，其他模块则是EurekaClient。网关模块为两个微服务以及客户端提供统一的路由，断路器配置在网关模块中，而pos-cart模块对pos-products相关内容的远程调用也通过网关路由，由此全系统上都配置了断路器。
+
+## aw07拓展
+aw07要求我们在原有的程序中拓展一个快递服务，通过消息中间件来异步处理。
