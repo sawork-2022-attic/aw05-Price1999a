@@ -11,17 +11,17 @@
 
     <artifactId>pos-discovery</artifactId>
 
-    <dependencyManagement>
-        <dependencies>
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.cloud</groupId>-->
-            <!--                <artifactId>spring-cloud-dependencies</artifactId>-->
-            <!--                <version>2021.0.1</version>-->
-            <!--                <type>pom</type>-->
-            <!--                <scope>import</scope>-->
-            <!--            </dependency>-->
-        </dependencies>
-    </dependencyManagement>
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            &lt;!&ndash;            <dependency>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <groupId>org.springframework.cloud</groupId>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <artifactId>spring-cloud-dependencies</artifactId>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <version>2021.0.1</version>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <type>pom</type>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <scope>import</scope>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </dependency>&ndash;&gt;-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
 
     <dependencies>
         <!--        <dependency>-->
