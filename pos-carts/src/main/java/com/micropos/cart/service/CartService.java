@@ -7,7 +7,7 @@ import com.micropos.cart.model.Product;
 import java.util.List;
 
 public interface CartService {
-    public void checkout(List<Item> cart);
+    public void checkout(List<Item> cart, String userID);
 
     public List<Item> add(List<Item> cart, Product productId, int amount);
 

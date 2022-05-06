@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Log4j2
 public class DeliveryServiceImpl implements DeliveryService {
     private DeliveryOrderRepository orderRepository;
+//    private UUID uuid =UUID.randomUUID();
 
-    public void setOrderRepository(@Autowired DeliveryOrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public DeliveryServiceImpl(@Autowired DeliveryOrderRepository deliveryOrderRepository) {
+        this.orderRepository = deliveryOrderRepository;
     }
 
     @Override
@@ -29,6 +31,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public boolean addOrder(Order order) {
+        order.setDeliveryState("delivery service received this order, dealing it");
+        order.setDeliveryID(order.getUserID() + "-" + UUID.randomUUID());
         log.info("add order: {}", order);
         return orderRepository.addOrder(order);
     }

@@ -57,7 +57,7 @@ public class CartController implements CheckoutApi, CartApi {
     public ResponseEntity<List<ItemDto>> checkout() {
         logger.info("checkout()");
         getCart();
-        cartService.checkout(cart);
+        cartService.checkout(cart, session.getId());
         session.setAttribute("cart", cart);
         List<ItemDto> castDto = new ArrayList<>(cartMapper.toCartDto(cart));
         return new ResponseEntity<>(castDto, HttpStatus.OK);
