@@ -64,6 +64,17 @@ spring:
                 name: deliveryCircuitBreaker
                 fallbackUri: forward:/fallback
 
+#        - id: delivery-si
+#          uri: lb://POS-GATEWAY
+#          predicates:
+#            - Path=/si-api/check/*
+#          filters:
+##              - PrefixPath=/delivery-api
+#            - name: CircuitBreaker
+#              args:
+#                name: deliveryCircuitBreaker
+#                fallbackUri: forward:/fallback
+
 
 eureka:
   instance:
