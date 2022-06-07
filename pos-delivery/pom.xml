@@ -13,16 +13,20 @@
     <description>pos-delivery</description>
     <properties>
         <java.version>11</java.version>
-<!--        <spring-cloud.version>2021.0.2</spring-cloud.version>-->
+        <!--        <spring-cloud.version>2021.0.2</spring-cloud.version>-->
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -52,11 +56,11 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -81,15 +85,15 @@
         </dependency>
     </dependencies>
     <dependencyManagement>
-<!--        <dependencies>-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.cloud</groupId>-->
-<!--                <artifactId>spring-cloud-dependencies</artifactId>-->
-<!--                <version>${spring-cloud.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
-<!--        </dependencies>-->
+        <!--        <dependencies>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.springframework.cloud</groupId>-->
+        <!--                <artifactId>spring-cloud-dependencies</artifactId>-->
+        <!--                <version>${spring-cloud.version}</version>-->
+        <!--                <type>pom</type>-->
+        <!--                <scope>import</scope>-->
+        <!--            </dependency>-->
+        <!--        </dependencies>-->
     </dependencyManagement>
 
     <build>
@@ -127,13 +131,25 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
+                    <inputSpec>${project.basedir}/src/main/resources/api.yml</inputSpec>
+                    <generatorName>spring</generatorName>
                     <modelNameSuffix>Dto</modelNameSuffix>
                     <apiPackage>com.micropos.delivery.api</apiPackage>
                     <modelPackage>com.micropos.delivery.dto</modelPackage>
+                    <configOptions>
+                        <reactive>true</reactive>
+                        <interfaceOnly>true</interfaceOnly>
+                    </configOptions>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
