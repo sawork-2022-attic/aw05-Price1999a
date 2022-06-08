@@ -63,7 +63,8 @@ components:
         name:
           type: string
         price:
-          type: double
+          type: number
+          format: double
         image:
           type: string
     Products:
