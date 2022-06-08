@@ -11,11 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,15 +48,26 @@ public class DeliveryController implements DeliveryApi {
 //        return new ResponseEntity<>(orderDtoList, HttpStatus.OK);
 //    }
 
-    private Flux<OrderDto> dataFromSer(String userId) {
-        log.info("dataFromSer({})", userId);
+    private List<OrderDto> listFromSer(String userId) {
+        log.info("listFromSer({})", userId);
         List<OrderDto> orderDtoList;
         if ("admin".equals(userId)) {
             orderDtoList = new ArrayList<>(ordersMapper.toOrdersDto(deliveryService.orders()));
         } else {
             orderDtoList = new ArrayList<>(ordersMapper.toOrdersDto(deliveryService.ordersByUserID(userId)));
         }
-        return Flux.fromArray(orderDtoList.toArray(new OrderDto[0]));
+        return orderDtoList;
+    }
+
+    private Flux<OrderDto> dataFromSer(String userId) {
+//        log.info("dataFromSer({})", userId);
+//        List<OrderDto> orderDtoList;
+//        if ("admin".equals(userId)) {
+//            orderDtoList = new ArrayList<>(ordersMapper.toOrdersDto(deliveryService.orders()));
+//        } else {
+//            orderDtoList = new ArrayList<>(ordersMapper.toOrdersDto(deliveryService.ordersByUserID(userId)));
+//        }
+        return Flux.fromArray(listFromSer(userId).toArray(new OrderDto[0]));
     }
 
 
@@ -63,5 +77,17 @@ public class DeliveryController implements DeliveryApi {
                         dataFromSer(userId)
                 ).map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/delivery-sse/{userId}",
+            produces = {"text/event-stream;charset=UTF-8"}
+    )
+    public Flux<List<OrderDto>> listInfoByUserIDSSE(
+            @Parameter(name = "userId", description = "User id to view delivery information", required = true, schema = @Schema(description = "")) @PathVariable("userId") String userId
+    ) {
+        return Flux.interval(Duration.ofSeconds(5))
+                .map(sequence -> listFromSer(userId));
     }
 }

@@ -35,6 +35,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+#  /delivery-sse/{userId}:
+#    get:
+#      summary: List delivery info in system
+#      operationId: listInfoByUserIDSSE
+#      tags:
+#        - delivery
+#      parameters:
+#        - name: userId
+#          in: path
+#          required: true
+#          description: User id to view delivery information
+#          schema:
+#            type: string
+#      responses:
+#        '200':
+#          description: A paged array of delivery info
+#          content:
+#            text/event-stream;charset=UTF-8:
+#              schema:
+#                $ref: "#/components/schemas/Orders"
+
+#                text/event-stream;charset=UTF-8
 
 components:
   schemas:
