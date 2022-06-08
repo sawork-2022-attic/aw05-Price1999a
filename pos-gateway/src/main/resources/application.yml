@@ -23,7 +23,7 @@ spring:
         - id: session-test
           uri: lb://POS-CART
           predicates:
-            - Path=/session/**
+            - Path=/session/**,/checkout/**,/cart/**
           filters:
             - PrefixPath=/cart-api
             - name: CircuitBreaker
@@ -31,32 +31,33 @@ spring:
                 name: cartCircuitBreaker
                 fallbackUri: forward:/fallback
 
-        - id: checkout
-          uri: lb://POS-CART
-          predicates:
-            - Path=/checkout/**
-          filters:
-            - PrefixPath=/cart-api
-            - name: CircuitBreaker
-              args:
-                name: cartCircuitBreaker
-                fallbackUri: forward:/fallback
-
-        - id: cart
-          uri: lb://POS-CART
-          predicates:
-            - Path=/cart/**
-          filters:
-            - PrefixPath=/cart-api
-            - name: CircuitBreaker
-              args:
-                name: cartCircuitBreaker
-                fallbackUri: forward:/fallback
+#        - id: checkout
+#          uri: lb://POS-CART
+#          predicates:
+#            - Path=/checkout/**
+#          filters:
+#            - PrefixPath=/cart-api
+#            - name: CircuitBreaker
+#              args:
+#                name: cartCircuitBreaker
+#                fallbackUri: forward:/fallback
+#
+#        - id: cart
+#          uri: lb://POS-CART
+#          predicates:
+#            - Path=/cart/**
+#          filters:
+#            - PrefixPath=/cart-api
+#            - name: CircuitBreaker
+#              args:
+#                name: cartCircuitBreaker
+#                fallbackUri: forward:/fallback
 
         - id: delivery
           uri: lb://POS-DELIVERY
           predicates:
-            - Path=/delivery/**
+            - Path=/delivery/**,/delivery-sse/**
+#            - Path=/delivery-sse/**
           filters:
             - PrefixPath=/delivery-api
             - name: CircuitBreaker

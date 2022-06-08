@@ -13,6 +13,7 @@ public class DeliveryOrderRepositoryInMemory implements DeliveryOrderRepository 
 
     @Override
     public List<Order> allOrders() {
+        if (allOrders.size() == 0) allOrders.add(new Order());
         return allOrders;
     }
 
