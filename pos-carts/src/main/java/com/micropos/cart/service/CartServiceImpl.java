@@ -13,6 +13,7 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class CartServiceImpl implements CartService {
     private final String bindingName = "order-todo";
 
     public void checkout(List<Item> cart, String userID) {
+        if (cart == null) return;
         double price = 0;
         for (Item i : cart) {
             price += i.getQuantity() * i.getProduct().getPrice();
@@ -67,7 +69,11 @@ public class CartServiceImpl implements CartService {
                 + "/products/" + productId;
         //logger.info(restTemplate.getForObject(url, ProductDto.class));
         logger.info("url: " + url);
-        return restTemplate.getForObject(url, ProductDto.class);
+        try {
+            return restTemplate.getForObject(url, ProductDto.class);
+        } catch (RestClientException e) {
+            return null;
+        }
     }
 
     public List<Item> delete(List<Item> cart, String productId) {
