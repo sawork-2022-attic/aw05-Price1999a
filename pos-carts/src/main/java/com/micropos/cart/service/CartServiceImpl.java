@@ -2,6 +2,7 @@ package com.micropos.cart.service;
 
 import com.micropos.cart.amqp.RabbitMQConfig;
 import com.micropos.cart.dto.ProductDto;
+import com.micropos.cart.mapper.CartMapper;
 import com.micropos.cart.model.Item;
 import com.micropos.cart.model.Order;
 import com.micropos.cart.model.Product;
@@ -9,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -62,7 +64,8 @@ public class CartServiceImpl implements CartService {
         return cart;
     }
 
-    public ProductDto getProductFromId(String productId) {
+    @Cacheable(value = "cart-product", key = "#productId")
+    public Product getProductFromId(String productId, CartMapper mapper) {
         RestTemplate restTemplate = new RestTemplate();
         ServiceInstance serviceInstance = loadBalancerClient.choose("POS-GATEWAY");
         String url = String.format("http://%s:%s", serviceInstance.getHost(), serviceInstance.getPort())
@@ -70,7 +73,7 @@ public class CartServiceImpl implements CartService {
         //logger.info(restTemplate.getForObject(url, ProductDto.class));
         logger.info("url: " + url);
         try {
-            return restTemplate.getForObject(url, ProductDto.class);
+            return mapper.toProduct(restTemplate.getForObject(url, ProductDto.class));
         } catch (RestClientException e) {
             return null;
         }

@@ -1,6 +1,7 @@
 package com.micropos.cart.service;
 
 import com.micropos.cart.dto.ProductDto;
+import com.micropos.cart.mapper.CartMapper;
 import com.micropos.cart.model.Item;
 import com.micropos.cart.model.Product;
 
@@ -11,7 +12,7 @@ public interface CartService {
 
     public List<Item> add(List<Item> cart, Product productId, int amount);
 
-    public ProductDto getProductFromId(String productId);
+    public Product getProductFromId(String productId, CartMapper mapper);
 
     public List<Item> delete(List<Item> cart, String productId);
 

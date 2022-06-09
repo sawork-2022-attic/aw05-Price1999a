@@ -153,7 +153,7 @@ public class CartController implements CheckoutApi, CartApi {
                                     if (cart == null) {
                                         cart = new ArrayList<Item>();
                                     }
-                                    Product product = cartMapper.toProduct(cartService.getProductFromId(productId));
+                                    Product product = cartService.getProductFromId(productId, cartMapper);
                                     cart = cartService.add(cart, product, 1);
                                     webSession.getAttributes().put("cart", cart);
                                     webSession.save();
